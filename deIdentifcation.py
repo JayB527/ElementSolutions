@@ -1,12 +1,6 @@
 import google.auth
 from google.cloud import dlp_v2
 from google.cloud.dlp_v2.types import DeidentifyTemplate
-"""
-$ export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json Need to run this in the GCP Cloud Terminal
-to load my authentication for the project and allow Python scripts to access the GCP API's I have
-access to
-"""
-
 from google.oauth2 import service_account
 
 credentials = service_account.Credentials.from_service_account_file(r'/Users/ankithb/Downloads/ElementSolutions/involuted-woods-360619-59d8e0b17cdb.json')
