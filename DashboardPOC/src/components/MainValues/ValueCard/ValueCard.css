@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
+
+html {
+    font-family: Poppins, sans-serif;
+}
+
+.valueWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    position: relative;
+}
+
+.cardHeader {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.value {
+    font-weight: 500;
+    font-size: 4rem;
+}
