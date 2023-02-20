@@ -22,14 +22,14 @@ RDS_PASSWORD=""
 RDS_PORT=""
 RDS_DBNAME=""
 ```
-**IMPORTANT:** Make sure your `.env` file is located *inside* the `DashboardPOC` folder for this project: `./ElementSolutions/DashboardPOC`
+**IMPORTANT:** Make sure your `.env` file is located *inside* the `DashboardPOC` folder for this project.
 
 <br>3. If you are using live RDS data for development, start up the Express.js server by running the following the npm script:
 ```
 npm run server
 ```
 
-The server code is located within the directory `./ElementSolutions/DashboardPOC/server/index.js`
+The server code is located within the directory `./server/index.js`
 
 <br>4. Boot up the frontend of the app by running the following script:
 ```
