@@ -1,4 +1,42 @@
-## Available Scripts
+# Element FHIR Dashboard - Proof of Concept
+
+The dashboad represents an idea for a possible solution for displaying FHIR metrics from database data. The frontend for the project is built through React. The backend server is ran with Express.js and is used as the API for the frontend to pull data from the PostgreSQL AWS RDS database.
+
+The **Data Analytics** section on the webpage provides the numbers for six values. The descriptions and values in each box can be changed to anything that may be needed in the future as they currently serve as filler information for the six values mentioned in the JIRA ticket.
+
+The **Patients Table** section is where the table data fetched from the PostgreSQL database will be displayed. Currently, the table contains data for the `ID`, `First name`, `Last name`, `Cholesterol`, and `Age` of each patient. The table columns can be easily expanded/reduced based on future need.
+
+## Development Guide
+
+1. Make sure you change directory into the `DashboardPOC` folder if you haven't already as all the following steps will treat this directory as the root.
+```
+cd DashboardPOC
+```
+
+<br>2. The repository does not include the `.env` file filled with database secrets for security reasons. Feel free to ask **Devin** for the following values when you are developing using live RDS table data. You can copy and paste the following format directly into your `.env` file.
+
+```
+RDS_HOSTNAME=""
+RDS_USERNAME=""
+RDS_PASSWORD=""
+RDS_PORT=""
+RDS_DBNAME=""
+```
+**IMPORTANT:** Make sure your `.env` file is located *inside* the `DashboardPOC` folder for this project: `./ElementSolutions/DashboardPOC`
+
+<br>3. If you are using live RDS data for development, start up the Express.js server by running the following the npm script:
+```
+npm run server
+```
+
+The server code is located within the directory `./ElementSolutions/DashboardPOC/server/index.js`
+
+<br>4. Boot up the frontend of the app by running the following script:
+```
+npm start
+```
+
+## Available Scripts (Kept from the `create-react-app` documentation)
 
 In the project directory, you can run:
 
