@@ -6,9 +6,10 @@ The **Data Analytics** section on the webpage provides the numbers for six value
 
 The **Patients Table** section is where the table data fetched from the PostgreSQL database will be displayed. Currently, the table contains data for the `ID`, `First name`, `Last name`, `Cholesterol`, and `Age` of each patient. The table columns can be easily expanded/reduced based on future need.
 
+
 ## Development Guide
 
-1. Make sure you change directory into the `DashboardPOC` folder if you haven't already as all the following steps will treat this directory as the root.
+<br>1. Make sure you change directory into the `DashboardPOC` folder if you haven't already as all the following steps will treat this directory as the root.
 ```
 cd DashboardPOC
 ```
