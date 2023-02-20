@@ -13,7 +13,12 @@ The **Patients Table** section is where the table data fetched from the PostgreS
 cd DashboardPOC
 ```
 
-<br>2. The repository does not include the `.env` file filled with database secrets for security reasons. Feel free to ask **Devin** for the following values when you are developing using live RDS table data. You can copy and paste the following format directly into your `.env` file.
+<br>2. Install all of the dependencies.
+```
+npm install
+```
+
+<br>3. The repository does not include the `.env` file filled with database secrets for security reasons. Feel free to ask **Devin** for the following values when you are developing using live RDS table data. You can copy and paste the following format directly into your `.env` file.
 
 ```
 RDS_HOSTNAME=""
@@ -24,14 +29,14 @@ RDS_DBNAME=""
 ```
 **IMPORTANT:** Make sure your `.env` file is located *inside* the `DashboardPOC` folder for this project.
 
-<br>3. If you are using live RDS data for development, start up the Express.js server by running the following the npm script:
+<br>4. If you are using live RDS data for development, start up the Express.js server by running the following the npm script:
 ```
 npm run server
 ```
 
 The server code is located within the directory `./server/index.js`
 
-<br>4. Boot up the frontend of the app by running the following script:
+<br>5. Boot up the frontend of the app by running the following script:
 ```
 npm start
 ```
