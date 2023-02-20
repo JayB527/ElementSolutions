@@ -1,24 +1,23 @@
 import './PatientsTable.css'
 import { DataGrid } from '@mui/x-data-grid';
+import { useState, useEffect } from 'react';
 
 
 const columns = [
     { field: "id", headerName: "ID", type: 'number', align: 'left', headerAlign: 'left'},
-    { field: 'firstName', headerName: 'First name', flex: 1 },
-    { field: 'lastName', headerName: 'Last name', flex: 1 },
+    { field: 'fname', headerName: 'First name', flex: 1 },
+    { field: 'lname', headerName: 'Last name', flex: 1 },
     { field: 'cholesterol', headerName: 'Cholesterol', type: 'number', flex: 1, align: 'left', headerAlign: 'left' },
     { field: 'age', headerName: 'Age', type: 'number', flex: 1, align: 'left', headerAlign: 'left'}
 ];
   
-const rows = [
-    { id: 1, firstName: 'Jon', lastName: 'Doe', age: 35, cholesterol:'113.7' },
-    { id: 2, firstName: 'Anna', lastName: 'Johnson', age: 25, cholesterol:'143.7' },
-    { id: 3, firstName: 'Maddison', lastName: 'Shell', age: 17, cholesterol:'103.7' },
-    { id: 4, firstName: 'Oliver', lastName: 'Smith', age: 9, cholesterol:'221.7' },
-    { id: 5, firstName: 'Oakley', lastName: 'Barb', age: 63, cholesterol:'123.7' },
-    { id: 6, firstName: 'Olivia', lastName: 'Chip', age: 40, cholesterol:'172.7' },
-    { id: 7, firstName: 'Walt', lastName: 'Michaels', age: 20, cholesterol:'201.7' },
-    { id: 8, firstName: 'Sam', lastName: 'Bert', age: 53, cholesterol:'149.7' }
+const defaultRows = [
+    { id: 1, fname: 'FILLER', lname: 'Doe', age: 35, cholesterol:'113.7' },
+    { id: 2, fname: 'FILLER', lname: 'Johnson', age: 25, cholesterol:'143.7' },
+    { id: 3, fname: 'FILLER', lname: 'Shell', age: 17, cholesterol:'103.7' },
+    { id: 4, fname: 'FILLER', lname: 'Smith', age: 9, cholesterol:'221.7' },
+    { id: 5, fname: 'FILLER', lname: 'Barb', age: 63, cholesterol:'123.7' },
+    { id: 6, fname: 'FILLER', lname: 'Chip', age: 40, cholesterol:'172.7' }
 ];
 
 const tableStyle = {
@@ -29,6 +28,27 @@ const tableStyle = {
 }
 
 const PatientsTable = () => {
+    const [rows, setRows] = useState(defaultRows);
+ 
+    useEffect(() => {
+        async function getData() {
+            try {
+                let response = await fetch("http://localhost:3001/data");
+                let body = await response.json();
+
+                // Sort the data based on ID first to account for updated rows.
+                let data = body.data.sort((a, b) => a.id - b.id);
+                setRows(data);
+
+            } catch (err) {
+                console.log(err);
+                setRows(defaultRows);
+            }
+        }
+
+        getData();
+    }, []);
+
     return(
         <>
             <div className="titleWrapper">
