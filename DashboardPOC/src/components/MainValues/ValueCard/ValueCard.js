@@ -5,6 +5,7 @@ import { CardContent } from '@mui/material';
 const cardStyle = {
     height: 250,
     width: 250,
+    borderRadius: 4,
 }
 
 const cardContentStyle = {

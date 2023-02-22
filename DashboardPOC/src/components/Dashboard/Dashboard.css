@@ -2,6 +2,7 @@
 
 html {
     font-family: Poppins, sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -9,15 +10,26 @@ body {
 }
 
 .header {
-    margin: 3% 2% 0 7%;
+    margin: 3% 7% 0 7%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
+.right-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 5%;
+}
 
-#fhirSpan, #dashboardSpan {
-    font-size: 3rem;
+.title {
+    font-size: 3.5rem;
     letter-spacing: 4px;
+    height: 3.5rem;
+    line-height: 3.5rem;
 }
 
 #fhirSpan {
@@ -38,6 +50,20 @@ body {
 }
 
 #elementLogo {
-    width: 8%;
-    margin-right: 2%;
+    width: 20%;
+}
+
+a, a:active, a:focus, a:visited{
+    color: white;
+}
+
+.icon {
+    padding: 10px;
+    border-radius: 50%;
+    background-color: rgb(192, 192, 192);
+}
+
+.icon:hover {
+    background-color: rgb(156, 156, 156);
+    transition: 200ms;
 }

@@ -24,14 +24,16 @@ const tableStyle = {
     height: 550,
     padding: '1% 3%',
     margin: '1% 7% 10% 7%',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderRadius: 4,
 }
+
 
 const PatientsTable = () => {
     const [rows, setRows] = useState(defaultRows);
  
     useEffect(() => {
-        async function getData() {
+        let getData = async () => {
             try {
                 let response = await fetch("http://localhost:3001/data");
                 let body = await response.json();
@@ -49,10 +51,11 @@ const PatientsTable = () => {
         getData();
     }, []);
 
+    
     return(
         <>
             <div className="titleWrapper">
-                <div className="patientHeader">Patients Table</div>
+                <div className="patientHeader" id="table-title">Patients Table</div>
                 <div className="underlineBar"></div>
             </div>
 

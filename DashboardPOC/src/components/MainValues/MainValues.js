@@ -1,11 +1,12 @@
 import './MainValues.css'
 import ValueCard from './ValueCard/ValueCard';
 
+
 const MainValues = () => {
     return(
         <>
             <div className="titleWrapper">
-                <div className="dataHeader">Data Analytics</div>
+                <div className="dataHeader" id="data-title">Data Analytics</div>
                 <div className="underlineBar"></div>
             </div>
 

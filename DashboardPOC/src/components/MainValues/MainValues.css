@@ -11,7 +11,7 @@ html {
 
 .dataHeader {
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 
     margin-bottom: .2rem;
 }
@@ -29,5 +29,5 @@ html {
 
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
 }

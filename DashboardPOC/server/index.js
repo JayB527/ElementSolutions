@@ -3,6 +3,7 @@ const cors = require('cors');
 const pg = require('pg');
 require('dotenv').config();
 
+
 // Initial setup for the server.
 const PORT = 3001;
 const app = express();
