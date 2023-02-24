@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
+
+html {
+    font-family: Poppins, sans-serif;
+}
+
+.titleWrapper {
+    margin: 5% 0 2% 7%;
+    display: inline-block;
+}
+
+.patientHeader {
+    font-weight: 600;
+    font-size: 1.4rem;
+
+    margin-bottom: .2rem;
+}
+
+.underlineBar {
+    height: .4rem;
+
+    background: #ff4b1f;
+    background: -webkit-linear-gradient(to right, #ff9068, #ff4b1f);
+    background: linear-gradient(to right, #ff9068, #ff4b1f);
+}
+
+.MuiDataGrid-columnHeader {
+    transition: 200ms;
+}
+
+.MuiDataGrid-columnHeader:hover {
+    color: #ff4b1f;
+}
+
+.MuiDataGrid-columnHeader:focus-within {
+    outline: none !important;
+}
+
+.MuiDataGrid-columnHeaderTitle {
+    font-weight: 600 !important;
+}
+
+.MuiDataGrid-columnSeparator {
+    display: none !important;
+}
+
+.MuiDataGrid-cell:focus-within {
+    outline: none !important
+}
+
+.MuiDataGrid-iconButtonContainer {
+    margin-left: auto;
+}

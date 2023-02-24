@@ -1,0 +1,5 @@
+.DS_Store
+
+DashboardPOC/.env
+DashboardPOC/node_modules
+DashboardPOC/dashboard.pem
