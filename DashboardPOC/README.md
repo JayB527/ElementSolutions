@@ -37,7 +37,7 @@ npm run server
 
 The server code is located within the directory `./server/index.js`
 
-<br>5. Boot up the frontend of the app by running the following script:
+<br>5. Boot up the frontend of the app by running the following script in another terminal:
 ```
 npm start
 ```
