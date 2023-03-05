@@ -1,13 +1,15 @@
 const express = require('express');
-const cors = require('cors');
 const pg = require('pg');
+const path = require("path");
+const cors = require('cors')
 require('dotenv').config();
 
 
 // Initial setup for the server.
 const PORT = 3001;
 const app = express();
-app.use(cors());
+app.use(express.static(path.resolve(__dirname, '../build')));
+app.use(cors())
 
 
 /**
@@ -27,6 +29,13 @@ app.get("/data", async (req, res) => {
     // Close the database connection and return the data in JSON format.
     pgClient.end();
     res.json({ data: query['rows'] });
+});
+
+/**
+ * GET endpoint that renders the React build for the user.
+ */
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 });
 
 

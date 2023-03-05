@@ -35,7 +35,8 @@ const PatientsTable = () => {
     useEffect(() => {
         let getData = async () => {
             try {
-                let response = await fetch("http://localhost:3001/data");
+                let host = window.location.hostname
+                let response = await fetch(`http://${host}:3001/data`);
                 let body = await response.json();
 
                 // Sort the data based on ID first to account for updated rows.
