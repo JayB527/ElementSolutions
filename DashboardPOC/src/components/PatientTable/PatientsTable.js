@@ -36,7 +36,7 @@ const PatientsTable = () => {
         let getData = async () => {
             try {
                 let host = window.location.hostname
-                let response = await fetch(`http://${host}:3001/data`);
+                let response = await fetch(`http://${host}:3001/patients`);
                 let body = await response.json();
 
                 // Sort the data based on ID first to account for updated rows.

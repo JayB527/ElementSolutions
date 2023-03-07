@@ -13,10 +13,10 @@ app.use(cors())
 
 
 /**
- * GET endpoint queries all rows in the RDS database and returns an array with all of the values
- * found within the database.
+ * GET endpoint queries all rows in the patients_data table in the RDS database and returns an array with 
+ * all of the values found within the database.
  */
-app.get("/data", async (req, res) => {
+app.get("/patients", async (req, res) => {
     let connection = `postgres://${process.env.RDS_USERNAME}:${process.env.RDS_PASSWORD}@${process.env.RDS_HOSTNAME}:${process.env.RDS_PORT}/${process.env.RDS_DBNAME}`;
    
     // Sets up the connection to the RDS database.
@@ -30,6 +30,27 @@ app.get("/data", async (req, res) => {
     pgClient.end();
     res.json({ data: query['rows'] });
 });
+
+
+/**
+ * GET endpoint queries all the rows in the rules_data table in the RDS database and returns an array with
+ * all of the values found within the database.
+ */
+app.get("/rules", async (req, res) => {
+    let connection = `postgres://${process.env.RDS_USERNAME}:${process.env.RDS_PASSWORD}@${process.env.RDS_HOSTNAME}:${process.env.RDS_PORT}/${process.env.RDS_DBNAME}`;
+   
+    // Sets up the connection to the RDS database.
+    let pgClient = new pg.Client(connection);
+    await pgClient.connect();
+
+    // Queries the database to select all values found in the table.
+    let query = await pgClient.query("SELECT * from rules_data");
+
+    // Close the database connection and return the data in JSON format.
+    pgClient.end();
+    res.json({ data: query['rows'] });
+});
+
 
 /**
  * GET endpoint that renders the React build for the user.
