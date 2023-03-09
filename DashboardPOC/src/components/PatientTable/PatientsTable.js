@@ -31,6 +31,7 @@ const tableStyle = {
 
 const PatientsTable = () => {
     const [rows, setRows] = useState(defaultRows);
+    const [isLoading, setLoading] = useState(true);
  
     useEffect(() => {
         let getData = async () => {
@@ -41,15 +42,20 @@ const PatientsTable = () => {
 
                 // Sort the data based on ID first to account for updated rows.
                 let data = body.data.sort((a, b) => a.id - b.id);
+
+                setLoading(false);
                 setRows(data);
 
             } catch (err) {
                 console.log(err);
+
+                setLoading(false);
                 setRows(defaultRows);
             }
         }
 
-        getData();
+        setTimeout(() => getData(), 1000);
+        //getData();
     }, []);
 
     
@@ -67,6 +73,7 @@ const PatientsTable = () => {
                 pageSize={10}
                 disableSelectionOnClick
                 disableColumnMenu
+                loading={isLoading}
             />
         </>
     );
