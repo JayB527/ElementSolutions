@@ -11,8 +11,8 @@ from datetime import datetime
 # Upload the CSV file to an S3 bucket
 
 session = boto3.Session(
-aws_access_key_id='AKIAQXISJRH3A76CFWFH',
-aws_secret_access_key='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',
+aws_access_key_id='',
+aws_secret_access_key='',
 region_name='us-west-1')
 
 s3 = session.client('s3')
