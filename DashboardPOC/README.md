@@ -1,6 +1,6 @@
 # Element FHIR Dashboard - Proof of Concept
 
-The dashboad represents an idea for a possible solution for displaying FHIR metrics from database data. The frontend for the project is built through React. The backend server is ran with Express.js and is used as the API for the frontend to pull data from the PostgreSQL AWS RDS database.
+The dashboad represents an idea for a possible solution for displaying FHIR metrics from database data. The frontend for the project is built through React. The backend server is ran with Express.js and is used as the API for the frontend to pull data from the PostgreSQL AWS RDS database and S3 Buckets.
 
 The **Data Analytics** section on the webpage provides the numbers for six values. The descriptions and values in each box can be changed to anything that may be needed in the future as they currently serve as filler information for the six values mentioned in the JIRA ticket. The number of values to be displayed is dynamically calculated based on the the data received from the AWS RDS Postgre database. 
 
