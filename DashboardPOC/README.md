@@ -4,7 +4,7 @@ The dashboad represents an idea for a possible solution for displaying FHIR metr
 
 The **Data Analytics** section on the webpage provides the numbers for six values. The descriptions and values in each box can be changed to anything that may be needed in the future as they currently serve as filler information for the six values mentioned in the JIRA ticket.
 
-The **Patients Table** section is where the table data fetched from the PostgreSQL database will be displayed. Currently, the table contains data for the `ID`, `First name`, `Last name`, `Cholesterol`, and `Age` of each patient. The table columns can be easily expanded/reduced based on future need.
+The **Data Table** section is where the table data fetched from the S3 Bucket containing the Rules Engine's CSV results file will be displayed. The table is currently defined by the first line in the CSV file containing the column headers. The CSV file can be easily changed and the table will dynamically update to the new columns that are defined in the CSV file.
 
 
 ## Development Guide
