@@ -1,7 +1,7 @@
 import './Dashboard.css'
 import elementLogo from '../../images/element_logo_black.png'
 import MainValues from '../MainValues/MainValues';
-import PatientTable from '../PatientTable/PatientsTable';
+import DataTable from '../DataTable/DataTable';
 import DatasetOutlinedIcon from '@mui/icons-material/DatasetOutlined';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import Tooltip from '@mui/material/Tooltip';
@@ -31,7 +31,7 @@ const Dashboard = () => {
             </div>
 
             <MainValues />
-            <PatientTable />
+            <DataTable />
            
         </>
     );
