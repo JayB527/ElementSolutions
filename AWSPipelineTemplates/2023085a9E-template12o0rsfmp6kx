@@ -94,7 +94,7 @@ Resources:
     Type: 'AWS::Lambda::Function'
     Properties:
       Code:
-        Zipfile: |
+        ZipFile: |
             import csv
             import boto3
             
