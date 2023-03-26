@@ -1,0 +1,222 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    4d62db31-02b2-4b3e-b77a-2ebb26979048:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 170
+        'y': 20
+      z: 0
+      embeds: []
+    3685c09c-d901-4653-b409-4357e76864ad:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 90
+        'y': 120
+      z: 0
+      embeds: []
+      dependson:
+        - 4d62db31-02b2-4b3e-b77a-2ebb26979048
+        - ff9c4433-55c1-4bf0-bd73-a1da92c3adf6
+        - 9932aed9-ccdc-42b8-bac6-5c9d105e74ad
+    ff9c4433-55c1-4bf0-bd73-a1da92c3adf6:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 250
+        'y': 120
+      z: 0
+      embeds: []
+      dependson:
+        - 4d62db31-02b2-4b3e-b77a-2ebb26979048
+    078e66a7-ad3c-467d-b2fb-30fddfcdeb7a:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 30
+        'y': 250
+      z: 0
+      embeds: []
+      dependson:
+        - 3685c09c-d901-4653-b409-4357e76864ad
+    09c8d467-85c3-4d19-91ab-0b04e3e21ee2:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 30
+        'y': 360
+      z: 0
+      embeds: []
+      dependson:
+        - 078e66a7-ad3c-467d-b2fb-30fddfcdeb7a
+    1a00b9ff-f919-403e-b494-035a67f6bd60:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 150
+        'y': 250
+      z: 0
+      embeds: []
+      dependson:
+        - 3685c09c-d901-4653-b409-4357e76864ad
+    9932aed9-ccdc-42b8-bac6-5c9d105e74ad:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 20
+        'y': 20
+      z: 0
+    11266591-5f42-4a92-b338-f36b15de0f8c:
+      source:
+        id: 3685c09c-d901-4653-b409-4357e76864ad
+      target:
+        id: 9932aed9-ccdc-42b8-bac6-5c9d105e74ad
+      z: 11
+Resources:
+  HealthLakeFHIRStore:
+    Type: 'AWS::HealthLake::FHIRDatastore'
+    Properties:
+      DatastoreName: cf-fhir-datastore
+      DatastoreTypeVersion: R4
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 4d62db31-02b2-4b3e-b77a-2ebb26979048
+  LambdaRulesEngine:
+    Type: 'AWS::Lambda::Function'
+    Properties:
+      Code:
+        Zipfile: |
+            import csv
+            import boto3
+            
+            s3 = boto3.client('s3')
+            
+            def lambda_handler(event, context):
+                # Get the bucket and object key from the event
+                bucket_name = event['Records'][0]['s3']['bucket']['name']
+                object_key = event['Records'][0]['s3']['object']['key']
+                
+                # Read the contents of the S3 object
+                response = s3.get_object(Bucket=bucket_name, Key=object_key)
+                contents = response['Body'].read().decode('utf-8')
+                
+                # Parse the CSV file and extract the second row
+                rows = csv.reader(contents.split('\n'))
+                header = next(rows) # skip header row
+                second_row = next(rows)
+                value1, value2 = second_row
+                value1 = int(value1)
+                print("VALUE1 = ", value1)
+                value2 = float(value2)
+                value3 = None
+                value4 = ""
+                if value1 == 1:
+                    value3 = value2 / 2.54
+                    value4 = "inches (Height)"
+                elif value1 == 2:
+                    value3 = value2 + 10
+                    value4 = "BPM"
+                elif value1 == 3:
+                    value4 = ": Cholestrol"
+                    if value2 > 180:
+                        value3 = "BAD"
+                    else:
+                        value3 = "GOOD" 
+                # Read the existing CSV file in the destination bucket
+                destination_bucket = 'cf-rules-output'
+                destination_key = 'destination_csvfile.csv'
+                response = s3.get_object(Bucket=destination_bucket, Key=destination_key)
+                existing_contents = response['Body'].read().decode('utf-8')
+            
+                    
+                
+                # Append the new values to the existing CSV file
+                new_row = f"{value1},{value2},{value3},{value4}\n"
+                updated_contents = existing_contents + new_row
+                
+                # Upload the updated CSV file to the destination bucket
+                s3.put_object(Bucket=destination_bucket, Key=destination_key, Body=updated_contents)
+                
+                return {
+                    'statusCode': 200,
+                    'body': 'File uploaded successfully'
+                }
+      FunctionName: cf-rules-engine
+      Role: !GetAtt 
+        - IAMLambdaRole
+        - Arn
+      Handler: lambda_handler
+      Runtime: python3.9
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3685c09c-d901-4653-b409-4357e76864ad
+    DependsOn:
+      - HealthLakeFHIRStore
+      - S3InputBucket
+      - IAMLambdaRole
+  S3InputBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: cf-rules-input
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: ff9c4433-55c1-4bf0-bd73-a1da92c3adf6
+    DependsOn:
+      - HealthLakeFHIRStore
+  RDSPostgresDB:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: cf-database
+      MasterUsername: dashboardFHIR
+      MasterUserPassword: fhirtesting123
+      Engine: postgres
+      DBInstanceClass: db.t3.micro
+      AllocatedStorage: '200'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 078e66a7-ad3c-467d-b2fb-30fddfcdeb7a
+    DependsOn:
+      - LambdaRulesEngine
+  EC2DashboardServer:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-006dcf34c09e50022
+      KeyName: dashboard
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 09c8d467-85c3-4d19-91ab-0b04e3e21ee2
+    DependsOn:
+      - RDSPostgresDB
+  S3OutputBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: cf-rules-output
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 1a00b9ff-f919-403e-b494-035a67f6bd60
+    DependsOn:
+      - LambdaRulesEngine
+  IAMLambdaRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Path: /
+      RoleName: cf-lambda-role
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 9932aed9-ccdc-42b8-bac6-5c9d105e74ad
