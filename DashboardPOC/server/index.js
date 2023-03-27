@@ -3,7 +3,6 @@ const pg = require('pg');
 const path = require('path');
 const cors = require('cors');
 const { GetObjectCommand, S3Client } = require('@aws-sdk/client-s3');
-const { LineStyleOutlined } = require('@mui/icons-material');
 require('dotenv').config();
 
 // Initial setup for the server.
